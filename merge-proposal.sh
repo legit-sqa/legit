@@ -17,7 +17,7 @@ fi
 if test -a .git/MERGE_HEAD
 then
     merge=$(cat .git/MERGE_HEAD)
-    git do-commit -m "Merged"
+    git commit -m "Merged"
     git checkout -b proposals/merge
     git propose --is-merge $merge -m "Merge"
     git checkout $orig_head

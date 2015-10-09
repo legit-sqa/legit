@@ -36,7 +36,7 @@ do_merge()
 
     if git merge $name --quiet --no-ff --no-commit > /dev/null 2>&1
     then
-        git do-commit --quiet -m "Merged: $name"
+        git commit --quiet -m "Merged: $name"
 
         git checkout tracking --quiet
 
@@ -46,7 +46,7 @@ do_merge()
         replace_header Status Merged .tracking/proposals/$name/proposal
         git add .tracking/proposals/$name/proposal >> /dev/null 2>&1
 
-        git do-commit --quiet -m "Merged: $name"
+        git commit --quiet -m "Merged: $name"
     else
         if test ! -n "$keep"
         then

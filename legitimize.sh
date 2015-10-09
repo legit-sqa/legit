@@ -58,6 +58,6 @@ cd ../..
 
 # Commit this initialisation to the tracking branch
 git add .tracking/ > /dev/null
-git do-commit --quiet -m 'Initialized .tracking branch'
+git commit --quiet -m 'Initialized .tracking branch'
 
 return_to_orig_head

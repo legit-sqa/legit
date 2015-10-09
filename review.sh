@@ -158,7 +158,7 @@ replace_header Reviews $(expr $(read_header reviews $user) + 1) $user
 
 git add $user >> /dev/null 2>&1
 
-git do-commit --quiet -m "Reviewed: $name"
+git commit --quiet -m "Reviewed: $name"
 echo "Successfully Reviewed"
 
 cd ..
@@ -202,7 +202,7 @@ then
         fi
     done
 
-    git do-commit --quiet -m "Approved: $name"
+    git commit --quiet -m "Approved: $name"
 
     cd ..
 
@@ -237,7 +237,7 @@ then
         fi
     done
 
-    git do-commit --quiet -m "Rejected: $name"
+    git commit --quiet -m "Rejected: $name"
 
     cd ..
 fi

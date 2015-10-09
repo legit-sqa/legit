@@ -86,7 +86,7 @@ EOF
 
 git add .tracking/users/$user_file >> /dev/null 2>&1
 
-git do-commit --quiet -m "Added User: $name <$email>"
+git commit --quiet -m "Added User: $name <$email>"
 
 return_to_orig_head
 
