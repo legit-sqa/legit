@@ -20,10 +20,58 @@ return_to_orig_head()
     fi
 }
 
+require_clean_work_tree()
+{
+    die "Stub not finished"
+}
+
+require_work_tree()
+{
+    test "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = true ||
+    die "fatal: $0 cannot be used without a working tree."
+}
+
+cd_to_toplevel()
+{
+    cdup=$(git rev-parse --show-toplevel) &&
+    cd "$cdup" || {
+        echo >&2 "Cannot chdir to $cdup, the toplevel of the working tree"
+        exit 1
+    }
+}
+
+usage()
+{
+    echo $USAGE
+    die
+}
+
+die()
+{
+    die_with_status 1 "$@"
+}
+
+die_with_status ()
+{
+    status=$1
+    shift
+    printf >&2 '%s\n' "$*"
+    exit "$status"
+}
+
 die_neatly()
 {
     return_to_orig_head
     die $1
+}
+
+git_editor()
+{
+    if test -z "${GIT_EDITOR:+set}"
+    then
+        GIT_EDITOR="$(git var GIT_EDITOR)" || return $?
+    fi
+    eval "$GIT_EDITOR" '"$@"'
 }
 
 do_merge()
