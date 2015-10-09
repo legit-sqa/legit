@@ -1,7 +1,7 @@
 #!/bin/sh
 
 USAGE='[-m <message>]'
-. legit-setup
+. legit-setup.sh
 
 # Get the commit message
 message=

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. legit-setup
+. legit-setup.sh
 
 user=$(git config user.email)
 user=${user//@/_}

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. legit-setup
+. legit-setup.sh
 
 # Has this repo been legitimised?
 if ! git show-ref --quiet refs/heads/tracking; then

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. legit-setup
+. legit-setup.sh
 
 require_work_tree
 
