@@ -21,7 +21,8 @@ return_to_orig_head()
 require_clean_work_tree()
 {
     require_work_tree
-    if ! git diff-index --quiet HEAD --; then
+    if ! git diff-index --quiet HEAD --
+    then
         exit "fatal: Cannot $1 in dirty working tree"
     fi
 }
