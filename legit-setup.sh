@@ -20,7 +20,10 @@ return_to_orig_head()
 
 require_clean_work_tree()
 {
-    die "Stub not finished"
+    require_work_tree
+    if git diff-index --quiet HEAD --; then
+        exit "fatal: Cannot $1 in dirty working tree"
+    fi
 }
 
 require_work_tree()
