@@ -49,3 +49,5 @@ then
 else
     echo "Automatic Merge Failed"
 fi
+
+git checkout --quiet $orig_head
