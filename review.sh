@@ -77,7 +77,7 @@ then
     die "fatal: no user was found. Set one in git config"
 fi
 
-if ! git permissions review
+if ! permissions.sh review
 then
     die
 fi
