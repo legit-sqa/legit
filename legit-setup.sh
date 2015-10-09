@@ -1,7 +1,5 @@
 #!/bin/sh
 
-. git-sh-setup
-
 return_to_orig_head()
 {
     # If this is a new repository, it's possible that the branch we were
