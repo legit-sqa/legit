@@ -36,7 +36,9 @@ if [ ! -d .tracking/proposals/$name ]; then
     die_neatly "fatal: this proposal doesn't exist"
 fi
 
-if test $(read_header status .tracking/proposals/$name/proposal) != "Accepted"
+voteThreshold=$(git config --file config general.voteThreshold)
+
+if ! test -z $voteThreshold && test $(read_header status .tracking/proposals/$name/proposal) != "Accepted"
 then
     die_neatly "fatal: this proposal cannot be merged"
 fi
@@ -47,3 +49,5 @@ then
 else
     echo "Automatic Merge Failed"
 fi
+
+git checkout --quiet $orig_head
