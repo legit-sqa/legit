@@ -53,26 +53,16 @@ then
     fi
 fi
 
-##require_clean_work_tree
-cd_to_toplevel
-
 user_file=${email//@/_}
-orig_head=`git symbolic-ref -q --short HEAD`
-git checkout --quiet tracking
 
-if ! test -d .tracking/users
+users=($(git ls-tree refs/tracking/main | grep 'users$'))
+
+if ! test -z $(git ls-tree ${users[2]} | grep '$user_file$')
 then
-    mkdir .tracking/users
+    die "This user already exists in the system"
 fi
 
-if test -a .tracking/users/$user_file
-then
-    die_neatly "This user already exists in the system"
-fi
-
-touch .tracking/users/$user_file
-
-cat > .tracking/users/$user_file <<EOF
+file=$(git hash-object -w --stdin <<EOF
 User: $name
 Proposals: 0
 Accepted: 0
@@ -83,11 +73,20 @@ Bad-Accepts: 0
 Good-Accepts: 0
 Good-Rejects: 0
 EOF
+)
 
-git add .tracking/users/$user_file >> /dev/null 2>&1
+user_tree=$(
+{
+    echo 100644 blob $file$'\t'$user_file
+    git ls-tree ${users[2]}
+} | git mktree --missing)
 
-git commit --quiet -m "Added User: $name <$email>"
+new_root=$(
+    git ls-tree refs/tracking/main |
+    sed -e "s/[0-9a-z]\+\tusers$/$user_tree\tusers/" |
+    git mktree --missing)
 
-return_to_orig_head
+commit=$(git commit-tree -m "Added User: $name <$email>" -p refs/tracking/main $new_root)
+git update-ref refs/tracking/main $commit
 
 echo "Added User: $name <$email>"
